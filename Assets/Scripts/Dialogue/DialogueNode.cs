@@ -11,5 +11,6 @@ namespace RPG.Dialogue
         [SerializeField] private string uniqueId;
         [SerializeField] private string text;
         [SerializeField] private string[] children;
+        public string Text => text;
     }
 }

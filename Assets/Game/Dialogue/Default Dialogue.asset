@@ -16,11 +16,11 @@ MonoBehaviour:
   - uniqueId: a
     text: Hi
     children:
+    - aa
     - ab
-    - ac
-  - uniqueId: ab
+  - uniqueId: aa
     text: Hi to you too
     children: []
-  - uniqueId: ac
-    text: I'm busy
+  - uniqueId: ab
+    text: Hi, what do you want?
     children: []
