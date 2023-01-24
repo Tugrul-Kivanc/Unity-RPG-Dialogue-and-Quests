@@ -14,6 +14,7 @@ namespace RPG.Dialogue
         [SerializeField] private Rect nodeRect = new Rect(0, 0, 200, 100);
         public string UniqueId { get { return uniqueId; } set { uniqueId = value; } }
         public string Text { get { return text; } set { text = value; } }
+        public string[] Children => children;
         public Rect NodeRect { get => nodeRect; set => nodeRect = value; }
     }
 }
