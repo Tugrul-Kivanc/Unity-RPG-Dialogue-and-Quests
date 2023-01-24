@@ -16,29 +16,29 @@ MonoBehaviour:
   - uniqueId: a
     text: Hi
     children:
-    - aa
     - ab
-    position:
+    - aa
+    nodeRect:
       serializedVersion: 2
-      x: 0
-      y: 0
+      x: 81
+      y: 217
       width: 200
       height: 100
   - uniqueId: aa
     text: Hi to you too
     children: []
-    position:
+    nodeRect:
       serializedVersion: 2
-      x: 50
-      y: 50
+      x: 407
+      y: 102
       width: 200
       height: 100
   - uniqueId: ab
     text: Hi, what do you want?
     children: []
-    position:
+    nodeRect:
       serializedVersion: 2
-      x: 100
-      y: 100
+      x: 391
+      y: 299
       width: 200
       height: 100

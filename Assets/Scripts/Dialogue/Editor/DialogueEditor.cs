@@ -9,6 +9,9 @@ namespace RPG.Dialogue.Editor
     public class DialogueEditor : EditorWindow
     {
         private Dialogue selectedDialogue = null;
+        private Vector2 scrollViewPosition;
+        private const float editorSize = 4000f;
+        private const float backgroundSize = 50f;
         [NonSerialized] private GUIStyle nodeStyle;
         [NonSerialized] private DialogueNode nodeToDrag = null;
         [NonSerialized] private DialogueNode creatingNode = null;
@@ -65,6 +68,12 @@ namespace RPG.Dialogue.Editor
             else
             {
                 ProcessMouseEvent();
+
+                scrollViewPosition = EditorGUILayout.BeginScrollView(scrollViewPosition);
+                Rect canvas = GUILayoutUtility.GetRect(editorSize, editorSize);
+                Texture2D backgroundTexture = Resources.Load("background") as Texture2D;
+                GUI.DrawTextureWithTexCoords(canvas, backgroundTexture, new Rect(0, 0, editorSize / backgroundSize, editorSize / backgroundSize));
+
                 foreach (DialogueNode dialogueNode in selectedDialogue.DialogueNodes)
                 {
                     DrawNode(dialogueNode);
@@ -74,6 +83,8 @@ namespace RPG.Dialogue.Editor
                 {
                     DrawNodeConnections(dialogueNode);
                 }
+
+                EditorGUILayout.EndScrollView();
 
                 if (creatingNode != null)
                 {
@@ -98,7 +109,7 @@ namespace RPG.Dialogue.Editor
 
             if (Event.current.type == EventType.MouseDown && !isDragging)
             {
-                nodeToDrag = GetNodeAtPoint(Event.current.mousePosition);
+                nodeToDrag = GetNodeAtPoint(Event.current.mousePosition + scrollViewPosition);
                 if (draggingOffset != null && nodeToDrag != null)
                 {
                     draggingOffset = nodeToDrag.NodeRect.position - Event.current.mousePosition;
@@ -108,6 +119,11 @@ namespace RPG.Dialogue.Editor
             {
                 Undo.RecordObject(selectedDialogue, "Move Dialogue Node");
                 MoveNode(nodeToDrag);
+                GUI.changed = true;
+            }
+            else if (Event.current.type == EventType.MouseDrag && !isDragging)
+            {
+                scrollViewPosition -= Event.current.delta;
                 GUI.changed = true;
             }
             else if (Event.current.type == EventType.MouseUp && isDragging)
