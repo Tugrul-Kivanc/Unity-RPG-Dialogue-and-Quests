@@ -9,9 +9,10 @@ namespace RPG.Dialogue.Editor
     public class DialogueEditor : EditorWindow
     {
         private Dialogue selectedDialogue = null;
-        private GUIStyle nodeStyle;
-        private DialogueNode nodeToDrag = null;
-        private Vector2 draggingOffset;
+        [NonSerialized] private GUIStyle nodeStyle;
+        [NonSerialized] private DialogueNode nodeToDrag = null;
+        [NonSerialized] private DialogueNode creatingNode = null;
+        [NonSerialized] private Vector2 draggingOffset = new Vector2(0f, 0f);
 
         private void OnEnable()
         {
@@ -71,6 +72,14 @@ namespace RPG.Dialogue.Editor
                 {
                     DrawNodeConnections(dialogueNode);
                 }
+
+                if (creatingNode != null)
+                {
+                    Undo.RecordObject(selectedDialogue, "Created Dialogue Node");
+                    selectedDialogue.CreateNode(creatingNode);
+                    creatingNode = null;
+                }
+
             }
         }
 
@@ -81,7 +90,7 @@ namespace RPG.Dialogue.Editor
             if (Event.current.type == EventType.MouseDown && !isDragging)
             {
                 nodeToDrag = GetNodeAtPoint(Event.current.mousePosition);
-                if (draggingOffset != null)
+                if (draggingOffset != null && nodeToDrag != null)
                 {
                     draggingOffset = nodeToDrag.NodeRect.position - Event.current.mousePosition;
                 }
@@ -121,16 +130,18 @@ namespace RPG.Dialogue.Editor
 
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.LabelField("Node " + dialogueNode.UniqueId + ":", EditorStyles.boldLabel);
-            string newUniqueId = EditorGUILayout.TextField(dialogueNode.UniqueId);
             string newText = EditorGUILayout.TextField(dialogueNode.Text);
 
             if (EditorGUI.EndChangeCheck())
             {
                 Undo.RecordObject(selectedDialogue, "Update Dialogue Text");
 
-                dialogueNode.UniqueId = newUniqueId;
                 dialogueNode.Text = newText;
+            }
+
+            if (GUILayout.Button("+"))
+            {
+                creatingNode = dialogueNode;
             }
 
             GUILayout.EndArea();

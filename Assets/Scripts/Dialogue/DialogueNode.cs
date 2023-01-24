@@ -10,11 +10,11 @@ namespace RPG.Dialogue
     {
         [SerializeField] private string uniqueId;
         [SerializeField] private string text;
-        [SerializeField] private string[] children;
-        [SerializeField] private Rect nodeRect = new Rect(0, 0, 200, 100);
+        [SerializeField] private List<string> children = new List<string>();
+        [SerializeField] private Rect nodeRect = new Rect(100, 100, 200, 100);
         public string UniqueId { get { return uniqueId; } set { uniqueId = value; } }
         public string Text { get { return text; } set { text = value; } }
-        public string[] Children => children;
+        public List<string> Children => children;
         public Rect NodeRect { get => nodeRect; set => nodeRect = value; }
     }
 }
