@@ -13,6 +13,7 @@ namespace RPG.Dialogue.Editor
         [NonSerialized] private DialogueNode nodeToDrag = null;
         [NonSerialized] private DialogueNode creatingNode = null;
         [NonSerialized] private DialogueNode deletingNode = null;
+        [NonSerialized] private DialogueNode linkingNode = null;
         [NonSerialized] private Vector2 draggingOffset = new Vector2(0f, 0f);
 
         private void OnEnable()
@@ -157,9 +158,47 @@ namespace RPG.Dialogue.Editor
             {
                 deletingNode = dialogueNode;
             }
+
+            DrawLinkButtons(dialogueNode);
             GUILayout.EndHorizontal();
 
             GUILayout.EndArea();
+        }
+
+        private void DrawLinkButtons(DialogueNode dialogueNode)
+        {
+            if (linkingNode == null)
+            {
+                if (GUILayout.Button("Link"))
+                {
+                    linkingNode = dialogueNode;
+                }
+            }
+            else if (linkingNode == dialogueNode)
+            {
+                if (GUILayout.Button("Cancel"))
+                {
+                    linkingNode = null;
+                }
+            }
+            else if (linkingNode.Children.Contains(dialogueNode.UniqueId))
+            {
+                if (GUILayout.Button("Unlink"))
+                {
+                    Undo.RecordObject(selectedDialogue, "Removed Child Node Link");
+                    linkingNode.Children.Remove(dialogueNode.UniqueId);
+                    linkingNode = null;
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("Child"))
+                {
+                    Undo.RecordObject(selectedDialogue, "Added Child Node Link");
+                    linkingNode.Children.Add(dialogueNode.UniqueId);
+                    linkingNode = null;
+                }
+            }
         }
 
         private void DrawNodeConnections(DialogueNode dialogueNode)
