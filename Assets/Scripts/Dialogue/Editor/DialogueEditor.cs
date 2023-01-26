@@ -13,6 +13,7 @@ namespace RPG.Dialogue.Editor
         private const float editorSize = 4000f;
         private const float backgroundSize = 50f;
         [NonSerialized] private GUIStyle nodeStyle;
+        [NonSerialized] private GUIStyle playerNodeStyle;
         [NonSerialized] private DialogueNode nodeToDrag = null;
         [NonSerialized] private DialogueNode creatingNode = null;
         [NonSerialized] private DialogueNode deletingNode = null;
@@ -24,9 +25,16 @@ namespace RPG.Dialogue.Editor
             Selection.selectionChanged += OnSelectionChanged;
 
             nodeStyle = new GUIStyle();
-            nodeStyle.normal.background = Texture2D.grayTexture;
+            nodeStyle.normal.background = EditorGUIUtility.Load("node0") as Texture2D;
+            nodeStyle.normal.textColor = Color.white;
             nodeStyle.padding = new RectOffset(20, 20, 20, 20);
             nodeStyle.border = new RectOffset(12, 12, 12, 12);
+
+            playerNodeStyle = new GUIStyle();
+            playerNodeStyle.normal.background = EditorGUIUtility.Load("node1") as Texture2D;
+            playerNodeStyle.normal.textColor = Color.white;
+            playerNodeStyle.padding = new RectOffset(20, 20, 20, 20);
+            playerNodeStyle.border = new RectOffset(12, 12, 12, 12);
         }
 
         private void OnDisable()
@@ -151,7 +159,8 @@ namespace RPG.Dialogue.Editor
 
         private void DrawNode(DialogueNode dialogueNode)
         {
-            GUILayout.BeginArea(dialogueNode.NodeRect, nodeStyle);
+            GUIStyle style = dialogueNode.IsPlayerSpeaking ? playerNodeStyle : nodeStyle;
+            GUILayout.BeginArea(dialogueNode.NodeRect, style);
 
             dialogueNode.Text = EditorGUILayout.TextField(dialogueNode.Text);
 

@@ -10,6 +10,7 @@ namespace RPG.Dialogue
     public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
     {
         [SerializeField] private List<DialogueNode> dialogueNodes = new List<DialogueNode>();
+        [SerializeField] private Vector2 newNodeOffset = new Vector2(250f, 0f);
         public List<DialogueNode> DialogueNodes => dialogueNodes;
         private Dictionary<string, DialogueNode> nodeLookup = new Dictionary<string, DialogueNode>();
 
@@ -51,13 +52,16 @@ namespace RPG.Dialogue
             Undo.DestroyObjectImmediate(nodeToDelete);
         }
 
-        private static DialogueNode MakeNode(DialogueNode parentNode)
+        private DialogueNode MakeNode(DialogueNode parentNode)
         {
             DialogueNode newNode = CreateInstance<DialogueNode>();
             newNode.name = Guid.NewGuid().ToString();
             if (parentNode != null)
             {
                 parentNode.AddChild(newNode.name);
+                newNode.IsPlayerSpeaking = !parentNode.IsPlayerSpeaking;
+
+                newNode.SetPosition(parentNode.NodeRect.position + newNodeOffset);
             }
 
             return newNode;
