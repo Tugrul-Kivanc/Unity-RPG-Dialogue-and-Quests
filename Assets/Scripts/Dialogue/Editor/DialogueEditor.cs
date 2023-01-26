@@ -88,14 +88,12 @@ namespace RPG.Dialogue.Editor
 
                 if (creatingNode != null)
                 {
-                    Undo.RecordObject(selectedDialogue, "Created Dialogue Node");
                     selectedDialogue.CreateNode(creatingNode);
                     creatingNode = null;
                 }
 
                 if (deletingNode != null)
                 {
-                    Undo.RecordObject(selectedDialogue, "Deleted Dialogue Node");
                     selectedDialogue.DeleteNode(deletingNode);
                     deletingNode = null;
                 }
@@ -122,7 +120,6 @@ namespace RPG.Dialogue.Editor
             }
             else if (Event.current.type == EventType.MouseDrag && isDragging)
             {
-                Undo.RecordObject(selectedDialogue, "Move Dialogue Node");
                 MoveNode(nodeToDrag);
                 GUI.changed = true;
             }
@@ -158,16 +155,7 @@ namespace RPG.Dialogue.Editor
         {
             GUILayout.BeginArea(dialogueNode.NodeRect, nodeStyle);
 
-            EditorGUI.BeginChangeCheck();
-
-            string newText = EditorGUILayout.TextField(dialogueNode.Text);
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                Undo.RecordObject(selectedDialogue, "Update Dialogue Text");
-
-                dialogueNode.Text = newText;
-            }
+            dialogueNode.Text = EditorGUILayout.TextField(dialogueNode.Text);
 
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Add"))
@@ -206,8 +194,7 @@ namespace RPG.Dialogue.Editor
             {
                 if (GUILayout.Button("Unlink"))
                 {
-                    Undo.RecordObject(selectedDialogue, "Removed Child Node Link");
-                    linkingNode.Children.Remove(dialogueNode.name);
+                    linkingNode.RemoveChild(dialogueNode.name);
                     linkingNode = null;
                 }
             }
@@ -215,8 +202,7 @@ namespace RPG.Dialogue.Editor
             {
                 if (GUILayout.Button("Child"))
                 {
-                    Undo.RecordObject(selectedDialogue, "Added Child Node Link");
-                    linkingNode.Children.Add(dialogueNode.name);
+                    linkingNode.AddChild(dialogueNode.name);
                     linkingNode = null;
                 }
             }
