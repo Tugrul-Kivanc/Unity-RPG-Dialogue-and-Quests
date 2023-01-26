@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Dialogue
 {
     [CreateAssetMenu(fileName = "Default Dialogue", menuName = "Dialogue/New Dialogue", order = 0)]
-    public class Dialogue : ScriptableObject
+    public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
     {
         [SerializeField] private List<DialogueNode> dialogueNodes = new List<DialogueNode>();
         public List<DialogueNode> DialogueNodes => dialogueNodes;
@@ -15,13 +16,6 @@ namespace RPG.Dialogue
 #if UNITY_EDITOR
         private void Awake()
         {
-            if (dialogueNodes.Count == 0)
-            {
-                DialogueNode rootNode = new DialogueNode();
-                rootNode.UniqueId = Guid.NewGuid().ToString();
-                dialogueNodes.Add(rootNode);
-            }
-
             OnValidate();
         }
 #endif
@@ -31,7 +25,7 @@ namespace RPG.Dialogue
             nodeLookup.Clear();
             foreach (var node in dialogueNodes)
             {
-                nodeLookup[node.UniqueId] = node;
+                nodeLookup[node.name] = node;
             }
         }
 
@@ -53,9 +47,13 @@ namespace RPG.Dialogue
 
         public void CreateNode(DialogueNode parentNode)
         {
-            DialogueNode newNode = new DialogueNode();
-            newNode.UniqueId = Guid.NewGuid().ToString();
-            parentNode.Children.Add(newNode.UniqueId);
+            DialogueNode newNode = CreateInstance<DialogueNode>();
+            newNode.name = Guid.NewGuid().ToString();
+            Undo.RegisterCreatedObjectUndo(newNode, "Created Dialogue Node");
+            if (parentNode != null)
+            {
+                parentNode.Children.Add(newNode.name);
+            }
             dialogueNodes.Add(newNode);
             OnValidate();
         }
@@ -65,14 +63,39 @@ namespace RPG.Dialogue
             dialogueNodes.Remove(nodeToDelete);
             DeleteLinkToChildren(nodeToDelete);
             OnValidate();
+            Undo.DestroyObjectImmediate(nodeToDelete);
         }
 
         private void DeleteLinkToChildren(DialogueNode nodeToDelete)
         {
             foreach (var node in dialogueNodes)
             {
-                node.Children.Remove(nodeToDelete.UniqueId);
+                node.Children.Remove(nodeToDelete.name);
             }
+        }
+
+        public void OnBeforeSerialize()
+        {
+            if (dialogueNodes.Count == 0)
+            {
+                CreateNode(null);
+            }
+
+            if (!String.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
+            {
+                foreach (var node in dialogueNodes)
+                {
+                    if (String.IsNullOrEmpty(AssetDatabase.GetAssetPath(node)))
+                    {
+                        AssetDatabase.AddObjectToAsset(node, this);
+                    }
+                }
+            }
+        }
+
+        public void OnAfterDeserialize()
+        {
+            throw new NotImplementedException();
         }
     }
 }

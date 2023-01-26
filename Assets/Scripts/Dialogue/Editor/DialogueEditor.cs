@@ -113,6 +113,11 @@ namespace RPG.Dialogue.Editor
                 if (draggingOffset != null && nodeToDrag != null)
                 {
                     draggingOffset = nodeToDrag.NodeRect.position - Event.current.mousePosition;
+                    Selection.activeObject = nodeToDrag;
+                }
+                else
+                {
+                    Selection.activeObject = selectedDialogue;
                 }
             }
             else if (Event.current.type == EventType.MouseDrag && isDragging)
@@ -197,12 +202,12 @@ namespace RPG.Dialogue.Editor
                     linkingNode = null;
                 }
             }
-            else if (linkingNode.Children.Contains(dialogueNode.UniqueId))
+            else if (linkingNode.Children.Contains(dialogueNode.name))
             {
                 if (GUILayout.Button("Unlink"))
                 {
                     Undo.RecordObject(selectedDialogue, "Removed Child Node Link");
-                    linkingNode.Children.Remove(dialogueNode.UniqueId);
+                    linkingNode.Children.Remove(dialogueNode.name);
                     linkingNode = null;
                 }
             }
@@ -211,7 +216,7 @@ namespace RPG.Dialogue.Editor
                 if (GUILayout.Button("Child"))
                 {
                     Undo.RecordObject(selectedDialogue, "Added Child Node Link");
-                    linkingNode.Children.Add(dialogueNode.UniqueId);
+                    linkingNode.Children.Add(dialogueNode.name);
                     linkingNode = null;
                 }
             }
