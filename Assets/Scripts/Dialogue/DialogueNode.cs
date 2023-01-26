@@ -21,6 +21,7 @@ namespace RPG.Dialogue
                 {
 #if UNITY_EDITOR
                     Undo.RecordObject(this, "Update Dialogue Text");
+                    EditorUtility.SetDirty(this);
 #endif
                     text = value;
                 }
@@ -33,6 +34,7 @@ namespace RPG.Dialogue
             {
 #if UNITY_EDITOR
                 Undo.RecordObject(this, "Updated Child Node Link");
+                EditorUtility.SetDirty(this);
 #endif
                 return children;
             }
@@ -45,6 +47,7 @@ namespace RPG.Dialogue
             {
 #if UNITY_EDITOR
                 Undo.RecordObject(this, "Moved Dialogue Node");
+                EditorUtility.SetDirty(this);
 #endif
                 nodeRect = value;
             }
@@ -54,6 +57,7 @@ namespace RPG.Dialogue
         {
 #if UNITY_EDITOR
             Undo.RecordObject(this, "Added Child Node Link");
+            EditorUtility.SetDirty(this);
 #endif
             children.Add(childId);
         }
@@ -62,6 +66,7 @@ namespace RPG.Dialogue
         {
 #if UNITY_EDITOR
             Undo.RecordObject(this, "Removed Child Node Link");
+            EditorUtility.SetDirty(this);
 #endif
             children.Remove(childId);
         }
