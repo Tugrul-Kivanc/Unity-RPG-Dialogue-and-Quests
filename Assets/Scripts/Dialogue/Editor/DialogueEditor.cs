@@ -136,9 +136,7 @@ namespace RPG.Dialogue.Editor
 
         private void MoveNode(DialogueNode nodeToDrag)
         {
-            var rect = nodeToDrag.NodeRect;
-            rect.position = Event.current.mousePosition + draggingOffset;
-            nodeToDrag.NodeRect = rect;
+            nodeToDrag.SetPosition(Event.current.mousePosition + draggingOffset);
         }
 
         private DialogueNode GetNodeAtPoint(Vector2 point)

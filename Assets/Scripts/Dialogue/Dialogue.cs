@@ -22,11 +22,6 @@ namespace RPG.Dialogue
             }
         }
 
-        public DialogueNode GetRootNode()
-        {
-            return dialogueNodes[0];
-        }
-
         public IEnumerable<DialogueNode> GetAllChildren(DialogueNode parentNode)
         {
             foreach (string childId in parentNode.Children)
@@ -43,7 +38,7 @@ namespace RPG.Dialogue
         {
             DialogueNode newNode = MakeNode(parentNode);
             Undo.RegisterCreatedObjectUndo(newNode, "Created Dialogue Node");
-            Undo.RecordObject(this, "Created Dialogue Node");
+            Undo.RecordObject(this, "Added Dialogue Node");
             AddNode(newNode);
         }
 
@@ -62,7 +57,7 @@ namespace RPG.Dialogue
             newNode.name = Guid.NewGuid().ToString();
             if (parentNode != null)
             {
-                parentNode.Children.Add(newNode.name);
+                parentNode.AddChild(newNode.name);
             }
 
             return newNode;
@@ -78,7 +73,7 @@ namespace RPG.Dialogue
         {
             foreach (var node in dialogueNodes)
             {
-                node.Children.Remove(nodeToDelete.name);
+                node.RemoveChild(nodeToDelete.name);
             }
         }
 #endif
@@ -89,14 +84,14 @@ namespace RPG.Dialogue
             if (dialogueNodes.Count == 0)
             {
                 DialogueNode newNode = MakeNode(null);
-                MakeNode(newNode);
+                AddNode(newNode);
             }
 
-            if (!String.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
+            if (AssetDatabase.GetAssetPath(this) != "")
             {
                 foreach (var node in dialogueNodes)
                 {
-                    if (String.IsNullOrEmpty(AssetDatabase.GetAssetPath(node)))
+                    if (AssetDatabase.GetAssetPath(node) == "")
                     {
                         AssetDatabase.AddObjectToAsset(node, this);
                     }
@@ -107,7 +102,7 @@ namespace RPG.Dialogue
 
         public void OnAfterDeserialize()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

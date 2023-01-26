@@ -12,6 +12,9 @@ namespace RPG.Dialogue
         [SerializeField] private List<string> children = new List<string>();
         [SerializeField] private Rect nodeRect = new Rect(100, 100, 200, 100);
 
+        public List<string> Children => children;
+        public Rect NodeRect => nodeRect;
+
         public string Text
         {
             get => text;
@@ -21,35 +24,10 @@ namespace RPG.Dialogue
                 {
 #if UNITY_EDITOR
                     Undo.RecordObject(this, "Update Dialogue Text");
+                    text = value;
                     EditorUtility.SetDirty(this);
 #endif
-                    text = value;
                 }
-            }
-        }
-
-        public List<string> Children
-        {
-            get
-            {
-#if UNITY_EDITOR
-                Undo.RecordObject(this, "Updated Child Node Link");
-                EditorUtility.SetDirty(this);
-#endif
-                return children;
-            }
-        }
-
-        public Rect NodeRect
-        {
-            get => nodeRect;
-            set
-            {
-#if UNITY_EDITOR
-                Undo.RecordObject(this, "Moved Dialogue Node");
-                EditorUtility.SetDirty(this);
-#endif
-                nodeRect = value;
             }
         }
 
@@ -57,18 +35,27 @@ namespace RPG.Dialogue
         {
 #if UNITY_EDITOR
             Undo.RecordObject(this, "Added Child Node Link");
+            children.Add(childId);
             EditorUtility.SetDirty(this);
 #endif
-            children.Add(childId);
         }
 
         public void RemoveChild(string childId)
         {
 #if UNITY_EDITOR
             Undo.RecordObject(this, "Removed Child Node Link");
+            children.Remove(childId);
             EditorUtility.SetDirty(this);
 #endif
-            children.Remove(childId);
+        }
+
+        public void SetPosition(Vector2 newPosition)
+        {
+#if UNITY_EDITOR
+            Undo.RecordObject(this, "Move Dialogue Node");
+            nodeRect.position = newPosition;
+            EditorUtility.SetDirty(this);
+#endif
         }
     }
 }
