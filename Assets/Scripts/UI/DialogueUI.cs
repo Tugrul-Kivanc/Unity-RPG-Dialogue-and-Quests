@@ -9,9 +9,12 @@ namespace RPG.IU
 {
     public class DialogueUI : MonoBehaviour
     {
-        private PlayerConversant playerConversant;
         [SerializeField] private TextMeshProUGUI dialogueText;
         [SerializeField] private Button nextButton;
+        [SerializeField] private GameObject AIResponse;
+        [SerializeField] private Transform choiceRoot;
+        [SerializeField] private GameObject choicePrefab;
+        private PlayerConversant playerConversant;
 
         private void Start()
         {
@@ -28,8 +31,35 @@ namespace RPG.IU
 
         private void UpdateUI()
         {
-            dialogueText.text = playerConversant.GetText();
-            nextButton.gameObject.SetActive(playerConversant.HasNext());
+
+            AIResponse.SetActive(!playerConversant.IsChoosing);
+            choiceRoot.gameObject.SetActive(playerConversant.IsChoosing);
+
+            if (playerConversant.IsChoosing)
+            {
+                RemoveChildren(choiceRoot);
+
+                foreach (DialogueNode choiceText in playerConversant.GetChoices())
+                {
+                    GameObject choiceInstance = Instantiate(choicePrefab, choiceRoot);
+                    var textComponent = choiceInstance.GetComponentInChildren<TextMeshProUGUI>();
+                    textComponent.text = choiceText.Text;
+                }
+            }
+            else
+            {
+                dialogueText.text = playerConversant.GetText();
+                nextButton.gameObject.SetActive(playerConversant.HasNext());
+            }
+
+        }
+
+        private void RemoveChildren(Transform rootObject)
+        {
+            foreach (Transform child in rootObject)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 }

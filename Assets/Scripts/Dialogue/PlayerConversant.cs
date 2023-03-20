@@ -9,6 +9,8 @@ namespace RPG.Dialogue
     {
         [SerializeField] private Dialogue currentDialogue;
         private DialogueNode currentNode = null;
+        private bool isChoosing = false;
+        public bool IsChoosing => isChoosing;
 
         private void Awake()
         {
@@ -24,9 +26,21 @@ namespace RPG.Dialogue
             return currentNode.Text;
         }
 
+        public IEnumerable<DialogueNode> GetChoices()
+        {
+            return currentDialogue.GetPlayerChildNodes(currentNode);
+        }
+
         public void Next()
         {
-            DialogueNode[] childNodes = currentDialogue.GetAllChildren(currentNode).ToArray();
+            int numberOfPlayerResponses = currentDialogue.GetPlayerChildNodes(currentNode).Count();
+            if (numberOfPlayerResponses > 0)
+            {
+                isChoosing = true;
+                return;
+            }
+
+            DialogueNode[] childNodes = currentDialogue.GetAIChildNodes(currentNode).ToArray();
             int randomIndex = Random.Range(0, childNodes.Length);
             currentNode = childNodes[randomIndex];
         }
@@ -35,6 +49,11 @@ namespace RPG.Dialogue
         {
             return currentNode.Children.Count > 0;
         }
+
+        // public bool IsChoosing()
+        // {
+        //     return isChoosing;
+        // }
     }
 
 }

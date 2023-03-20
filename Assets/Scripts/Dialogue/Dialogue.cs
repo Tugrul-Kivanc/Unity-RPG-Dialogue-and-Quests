@@ -34,6 +34,28 @@ namespace RPG.Dialogue
             }
         }
 
+        public IEnumerable<DialogueNode> GetPlayerChildNodes(DialogueNode currentNode)
+        {
+            foreach (DialogueNode node in GetAllChildren(currentNode))
+            {
+                if (node.IsPlayerSpeaking)
+                {
+                    yield return node;
+                }
+            }
+        }
+
+        public IEnumerable<DialogueNode> GetAIChildNodes(DialogueNode currentNode)
+        {
+            foreach (DialogueNode node in GetAllChildren(currentNode))
+            {
+                if (!node.IsPlayerSpeaking)
+                {
+                    yield return node;
+                }
+            }
+        }
+
 #if UNITY_EDITOR
         public void CreateNode(DialogueNode parentNode)
         {
