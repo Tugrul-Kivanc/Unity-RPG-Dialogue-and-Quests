@@ -241,8 +241,8 @@ MonoBehaviour:
   - c1db24e3-5624-4341-bf75-772f82075f88
   nodeRect:
     serializedVersion: 2
-    x: 508
-    y: 283
+    x: 516
+    y: 285
     width: 200
     height: 100
 --- !u!114 &7481493597676876930
