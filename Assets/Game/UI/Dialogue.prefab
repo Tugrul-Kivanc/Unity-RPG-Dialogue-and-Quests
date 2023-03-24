@@ -956,6 +956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 5874079577035575093}
   nextButton: {fileID: 2294184551026410654}
+  quitButton: {fileID: 6802739589859947394}
   AIResponse: {fileID: 8544245068051623272}
   choiceRoot: {fileID: 5370200191803337774}
   choicePrefab: {fileID: 1919713389326651238, guid: 1c2e87c9722b33b479511f9051e5cb59,

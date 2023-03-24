@@ -33,6 +33,14 @@ namespace RPG.Dialogue
             onConversationUpdated();
         }
 
+        public void Quit()
+        {
+            currentDialogue = null;
+            currentNode = null;
+            isChoosing = false;
+            onConversationUpdated();
+        }
+
         public string GetText()
         {
             if (currentNode == null)
