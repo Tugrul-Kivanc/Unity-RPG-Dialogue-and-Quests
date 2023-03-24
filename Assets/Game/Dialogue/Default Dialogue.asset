@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
   m_Name: fe5f46bd-438d-4f94-8868-7a4cbac6c389
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
+  isPlayerSpeaking: 1
   text: Option 2
   children:
   - d9584f9a-9131-4429-b34a-962586aacc2b
   nodeRect:
     serializedVersion: 2
-    x: 525
-    y: 172
+    x: 388
+    y: 200
     width: 200
     height: 100
 --- !u!114 &-4991641909690424905
@@ -34,13 +34,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
   m_Name: 93a18fe6-6da9-4793-ac74-ad452fc8eb0b
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
-  text: Outcome 1.2
-  children: []
+  isPlayerSpeaking: 1
+  text: Option 1.2
+  children:
+  - 8cca9b35-8b1f-4132-a081-75cff6bbc967
   nodeRect:
     serializedVersion: 2
-    x: 1064
-    y: 139
+    x: 949
+    y: 141
     width: 200
     height: 100
 --- !u!114 &-4396180466447695015
@@ -58,11 +59,34 @@ MonoBehaviour:
   isPlayerSpeaking: 0
   text: Hi there
   children:
-  - 9c96cc70-8e92-40aa-9733-52c561a5af73
+  - 6529656f-7d8d-4f00-b3e6-018d24ea7a26
+  - fe5f46bd-438d-4f94-8868-7a4cbac6c389
+  - 6598907c-f00b-41ff-99cd-a0b95375e419
   nodeRect:
     serializedVersion: 2
     x: 45
-    y: 167
+    y: 166
+    width: 200
+    height: 100
+--- !u!114 &-4024156546439688063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
+  m_Name: 5219082e-f8eb-4a1b-96f5-39ae05940125
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Outcome 1.1
+  children: []
+  nodeRect:
+    serializedVersion: 2
+    x: 1212
+    y: 0
     width: 200
     height: 100
 --- !u!114 &-3140796823667872968
@@ -77,14 +101,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
   m_Name: c1db24e3-5624-4341-bf75-772f82075f88
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
-  text: Option 3.1
+  isPlayerSpeaking: 0
+  text: Response 3
   children:
   - 60f09334-c1a0-48a4-83a0-774da362bf1f
   nodeRect:
     serializedVersion: 2
-    x: 789
-    y: 353
+    x: 672
+    y: 397
     width: 200
     height: 100
 --- !u!114 &-879634784761893167
@@ -99,15 +123,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
   m_Name: b480304d-cc55-4821-a64c-12915d9377e2
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
-  text: Option 1.1
+  isPlayerSpeaking: 0
+  text: Response 1
   children:
   - b22a6323-f09f-4a0f-b0cf-1d93a9035c88
   - 93a18fe6-6da9-4793-ac74-ad452fc8eb0b
   nodeRect:
     serializedVersion: 2
-    x: 809
-    y: -5
+    x: 665
+    y: 43
     width: 200
     height: 100
 --- !u!114 &11400000
@@ -124,17 +148,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueNodes:
   - {fileID: -4396180466447695015}
-  - {fileID: 3846915604992533433}
   - {fileID: 8460128982685686169}
   - {fileID: 7051515631330046674}
   - {fileID: -3140796823667872968}
-  - {fileID: 7481493597676876930}
   - {fileID: -879634784761893167}
   - {fileID: 5353153871317425982}
   - {fileID: -4991641909690424905}
   - {fileID: -6043577515521184711}
   - {fileID: 1966802576451910766}
   - {fileID: 2342362117770691401}
+  - {fileID: -4024156546439688063}
+  - {fileID: 2171632026740151458}
+  - {fileID: 7496255003499051471}
   newNodeOffset: {x: 250, y: 0}
 --- !u!114 &1966802576451910766
 MonoBehaviour:
@@ -148,13 +173,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
   m_Name: d9584f9a-9131-4429-b34a-962586aacc2b
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
+  isPlayerSpeaking: 0
   text: Outcome 2
   children: []
   nodeRect:
     serializedVersion: 2
-    x: 1063
-    y: 297
+    x: 682
+    y: 219
+    width: 200
+    height: 100
+--- !u!114 &2171632026740151458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
+  m_Name: 8cca9b35-8b1f-4132-a081-75cff6bbc967
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Outcome 1.2
+  children: []
+  nodeRect:
+    serializedVersion: 2
+    x: 1200
+    y: 141
     width: 200
     height: 100
 --- !u!114 &2342362117770691401
@@ -169,37 +215,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
   m_Name: 60f09334-c1a0-48a4-83a0-774da362bf1f
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
-  text: Outcome 3.1
-  children: []
-  nodeRect:
-    serializedVersion: 2
-    x: 1058
-    y: 420
-    width: 200
-    height: 100
---- !u!114 &3846915604992533433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
-  m_Name: 9c96cc70-8e92-40aa-9733-52c561a5af73
-  m_EditorClassIdentifier: 
   isPlayerSpeaking: 1
-  text: Hi
+  text: Option 3.1
   children:
-  - 6529656f-7d8d-4f00-b3e6-018d24ea7a26
-  - 6598907c-f00b-41ff-99cd-a0b95375e419
-  - fe5f46bd-438d-4f94-8868-7a4cbac6c389
+  - ffc753d5-b635-452a-909e-384ed8978453
   nodeRect:
     serializedVersion: 2
-    x: 266
-    y: 167
+    x: 939
+    y: 402
     width: 200
     height: 100
 --- !u!114 &5353153871317425982
@@ -214,13 +237,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
   m_Name: b22a6323-f09f-4a0f-b0cf-1d93a9035c88
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
-  text: Outcome 1.1
-  children: []
+  isPlayerSpeaking: 1
+  text: Option 1.1
+  children:
+  - 5219082e-f8eb-4a1b-96f5-39ae05940125
   nodeRect:
     serializedVersion: 2
-    x: 1073
-    y: 5
+    x: 948
+    y: 0
     width: 200
     height: 100
 --- !u!114 &7051515631330046674
@@ -235,17 +259,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
   m_Name: 6598907c-f00b-41ff-99cd-a0b95375e419
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
+  isPlayerSpeaking: 1
   text: Option 3
   children:
   - c1db24e3-5624-4341-bf75-772f82075f88
   nodeRect:
     serializedVersion: 2
-    x: 516
-    y: 285
+    x: 401
+    y: 358
     width: 200
     height: 100
---- !u!114 &7481493597676876930
+--- !u!114 &7496255003499051471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -255,16 +279,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
-  m_Name: 41b2d7a7-12d5-452d-9e54-d44d8fa12955
+  m_Name: ffc753d5-b635-452a-909e-384ed8978453
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
-  text: Option 1.2
-  children:
-  - d9584f9a-9131-4429-b34a-962586aacc2b
+  isPlayerSpeaking: 0
+  text: Outcome 3
+  children: []
   nodeRect:
     serializedVersion: 2
-    x: 791
-    y: 128
+    x: 1189
+    y: 402
     width: 200
     height: 100
 --- !u!114 &8460128982685686169
@@ -279,14 +302,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31719715b789784bb2dec9a8414e09f, type: 3}
   m_Name: 6529656f-7d8d-4f00-b3e6-018d24ea7a26
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
+  isPlayerSpeaking: 1
   text: Option 1
   children:
-  - 41b2d7a7-12d5-452d-9e54-d44d8fa12955
   - b480304d-cc55-4821-a64c-12915d9377e2
   nodeRect:
     serializedVersion: 2
-    x: 561
-    y: 46
+    x: 402
+    y: 42
     width: 200
     height: 100
