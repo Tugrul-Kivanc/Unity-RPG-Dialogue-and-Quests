@@ -37,21 +37,32 @@ namespace RPG.IU
 
             if (playerConversant.IsChoosing)
             {
-                RemoveChildren(choiceRoot);
-
-                foreach (DialogueNode choiceText in playerConversant.GetChoices())
-                {
-                    GameObject choiceInstance = Instantiate(choicePrefab, choiceRoot);
-                    var textComponent = choiceInstance.GetComponentInChildren<TextMeshProUGUI>();
-                    textComponent.text = choiceText.Text;
-                }
+                BuildChoiceList();
             }
             else
             {
                 dialogueText.text = playerConversant.GetText();
                 nextButton.gameObject.SetActive(playerConversant.HasNext());
             }
+        }
 
+        private void BuildChoiceList()
+        {
+            RemoveChildren(choiceRoot);
+
+            foreach (DialogueNode choice in playerConversant.GetChoices())
+            {
+                GameObject choiceInstance = Instantiate(choicePrefab, choiceRoot);
+                var textComponent = choiceInstance.GetComponentInChildren<TextMeshProUGUI>();
+                textComponent.text = choice.Text;
+
+                Button button = choiceInstance.GetComponentInChildren<Button>();
+                button.onClick.AddListener(() =>
+                {
+                    playerConversant.SelectChoice(choice);
+                    UpdateUI();
+                });
+            }
         }
 
         private void RemoveChildren(Transform rootObject)
