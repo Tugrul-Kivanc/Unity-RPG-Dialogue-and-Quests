@@ -78,6 +78,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19ff972ec6859b48870488d7b1e81b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6694740936695093321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4902660786131331472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75bc025fd97b0547b1c7e04baa62d64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testDialogue: {fileID: 0}
 --- !u!114 &7122694563460434362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,21 +119,11 @@ MonoBehaviour:
   - type: 4
     texture: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
     hotspot: {x: 0, y: 0}
+  - type: 6
+    texture: {fileID: 2800000, guid: 96d4bfdb0d6d8c042bf8fccf6524d239, type: 3}
+    hotspot: {x: 0, y: 0}
   maxNavMeshProjectionDistance: 1
   raycastRadius: 1
---- !u!114 &6694740936695093321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4902660786131331472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f75bc025fd97b0547b1c7e04baa62d64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentDialogue: {fileID: 11400000, guid: 4161d190f9bfc8342811a6130af1f9f0, type: 2}
 --- !u!1001 &1080417002832114521
 PrefabInstance:
   m_ObjectHideFlags: 0
