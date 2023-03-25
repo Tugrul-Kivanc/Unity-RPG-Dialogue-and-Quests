@@ -18,12 +18,14 @@ namespace RPG.Dialogue
         {
             currentDialogue = newDialogue;
             currentNode = currentDialogue.DialogueNodes[0];
+            TriggerEnterAction();
             onConversationUpdated();
         }
 
         public void Quit()
         {
             currentDialogue = null;
+            TriggerExitAction();
             currentNode = null;
             isChoosing = false;
             onConversationUpdated();
@@ -46,6 +48,7 @@ namespace RPG.Dialogue
         public void SelectChoice(DialogueNode chosenNode)
         {
             currentNode = chosenNode;
+            TriggerEnterAction();
             isChoosing = false;
             Next();
         }
@@ -56,13 +59,16 @@ namespace RPG.Dialogue
             if (numberOfPlayerResponses > 0)
             {
                 isChoosing = true;
+                TriggerExitAction();
                 onConversationUpdated();
                 return;
             }
 
             DialogueNode[] childNodes = currentDialogue.GetAIChildNodes(currentNode).ToArray();
             int randomIndex = UnityEngine.Random.Range(0, childNodes.Length);
+            TriggerExitAction();
             currentNode = childNodes[randomIndex];
+            TriggerEnterAction();
             onConversationUpdated();
         }
 
@@ -74,6 +80,20 @@ namespace RPG.Dialogue
         public bool IsActive()
         {
             return currentDialogue != null;
+        }
+
+        private void TriggerEnterAction()
+        {
+            if (currentNode == null || currentNode.OnEnterAction == "") return;
+
+            Debug.Log(currentNode.OnEnterAction);
+        }
+
+        private void TriggerExitAction()
+        {
+            if (currentNode == null || currentNode.OnExitAction == "") return;
+
+            Debug.Log(currentNode.OnExitAction);
         }
 
         // public bool IsChoosing()
