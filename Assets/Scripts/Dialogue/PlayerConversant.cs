@@ -11,18 +11,22 @@ namespace RPG.Dialogue
         private Dialogue currentDialogue;
         private DialogueNode currentNode = null;
         private AIConversant currentAIConversant = null;
+        private float conversationRange = 3f;
         private bool isChoosing = false;
         public bool IsChoosing => isChoosing;
         public event Action onConversationUpdated;
 
         public void StartDialogue(Dialogue newDialogue, AIConversant newConversant)
         {
-            currentDialogue = newDialogue;
-            currentNode = currentDialogue.DialogueNodes[0];
-            currentAIConversant = newConversant;
+            if (IsInConversationRange(newConversant))
+            {
+                currentDialogue = newDialogue;
+                currentNode = currentDialogue.DialogueNodes[0];
+                currentAIConversant = newConversant;
 
-            TriggerEnterAction();
-            onConversationUpdated();
+                TriggerEnterAction();
+                onConversationUpdated();
+            }
         }
 
         public void Quit()
@@ -84,6 +88,11 @@ namespace RPG.Dialogue
         public bool IsActive()
         {
             return currentDialogue != null;
+        }
+
+        public bool IsInConversationRange(AIConversant aiConversant)
+        {
+            return Vector3.Distance(transform.position, aiConversant.transform.position) < conversationRange;
         }
 
         private void TriggerEnterAction()
