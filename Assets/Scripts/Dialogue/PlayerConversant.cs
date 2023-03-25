@@ -8,6 +8,7 @@ namespace RPG.Dialogue
 {
     public class PlayerConversant : MonoBehaviour
     {
+        [SerializeField] private string playerName;
         private Dialogue currentDialogue;
         private DialogueNode currentNode = null;
         private AIConversant currentAIConversant = null;
@@ -80,6 +81,12 @@ namespace RPG.Dialogue
             onConversationUpdated();
         }
 
+        public string GetCurrentConversantName()
+        {
+            if (isChoosing) return playerName;
+            return currentAIConversant.AIName;
+        }
+
         public bool HasNext()
         {
             return currentNode.Children.Count > 0;
@@ -118,11 +125,5 @@ namespace RPG.Dialogue
                 trigger.Trigger(action);
             }
         }
-
-        // public bool IsChoosing()
-        // {
-        //     return isChoosing;
-        // }
     }
-
 }
